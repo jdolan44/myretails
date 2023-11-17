@@ -22,8 +22,10 @@ public class MyRetails {
 		Connection db = initializeConnection(scanner);
 		CustomerDAO customerDao = new CustomerDAOImpl(db);
 		ProductDAO productDao = new ProductDAOImpl(db);
+		PurchaseOrderDAO orderDao = new PurchaseOrderDAOImpl(db);
+		LineItemDAO itemDao =new LineItemDAOImpl(db);
 		
-		FrontController controller = new FrontController(customerDao, productDao, scanner);
+		FrontController controller = new FrontController(customerDao, productDao, orderDao, itemDao, scanner);
 		controller.begin();
 		
 		System.out.println("Done!!!");

@@ -37,7 +37,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public Customer getCustomerById(int id) {
 		try (PreparedStatement ps = generateGetCustomerByIdStatement(id);
 				 ResultSet rs = ps.executeQuery()) {
-				//System.out.println(rs.getMetaData().getColumnTypeName(1));
 				Customer customer = null;
 				if(rs.next()) {
 					customer = mapRSToCustomer(rs);

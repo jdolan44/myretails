@@ -30,7 +30,7 @@ public class ProductDAOImpl implements ProductDAO {
 			e.printStackTrace();
 			return result;
 		}
-	
+
 	}
 
 	@Override
@@ -96,6 +96,31 @@ public class ProductDAOImpl implements ProductDAO {
 			return -1;
 		}
 	
+	}
+
+	@Override
+	public Product getProductByID(int prod_id) {
+		try (PreparedStatement ps = generateGetByIDStatement(prod_id);
+				ResultSet rs = ps.executeQuery()) {
+			Product product= null;
+			if(rs.next()) {
+				product = mapRSToProduct(rs);
+			}
+			return product;
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private PreparedStatement generateGetByIDStatement(int prod_id)
+			throws SQLException{
+		String SQL="SELECT * FROM product WHERE id = ?";
+		PreparedStatement ps = db.prepareStatement(SQL);
+		ps.setInt(1, prod_id);
+		return ps;
 	}
 
 }
